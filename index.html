@@ -2,112 +2,211 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Pagi Romantis 💕</title>
+<title>Morning CloudyBear ☀️</title>
+
 <style>
-    body {
-        font-family: 'Segoe UI', sans-serif;
-        background: linear-gradient(to bottom, #FFC0CB, #FFF0F5);
-        text-align: center;
-        padding: 20px;
-        color: #B03060;
-    }
-
-    h1 {
-        color: #C71585;
-    }
-
-    p {
-        font-size: 18px;
-    }
-
-    #gameArea {
-        position: relative;
-        width: 320px;
-        height: 320px;
-        background: #ffffffcc;
-        border-radius: 25px;
-        margin: 25px auto;
-        overflow: hidden;
-        border: 3px solid #FF69B4;
-    }
-
-    #heart {
-        font-size: 38px;
-        position: absolute;
-        cursor: pointer;
-        user-select: none;
-    }
-
-    button {
-        padding: 12px 24px;
-        font-size: 16px;
-        border-radius: 20px;
-        border: none;
-        background: #FF69B4;
-        color: white;
-        cursor: pointer;
-    }
-
-    button:hover {
-        background: #FF1493;
-    }
-
-    footer {
-        margin-top: 20px;
-        font-style: italic;
-        color: #8B008B;
-    }
-</style>
-</head>
-<body>
-
-<h1>💖 Selamat Pagi, Cintaku 💖</h1>
-<p>
-Bangun pagi itu biasa,<br>
-tapi bangun sambil mengingat kamu<br>
-itu luar biasa 💕<br><br>
-Semoga hari ini selembut senyummu<br>
-dan sehangat pelukan yang belum sempat terjadi 🤍
-</p>
-
-<h2>🎮 Game: Tangkap Cinta</h2>
-<p>Klik ❤️ sebanyak mungkin sebelum waktunya habis!</p>
-
-<div id="gameArea">
-    <div id="heart">❤️</div>
-</div>
-
-<p>⏳ Waktu: <span id="time">10</span> detik</p>
-<p>💗 Cinta Terkumpul: <span id="score">0</span></p>
-
-<button onclick="startGame()">Mulai dengan Cinta</button>
-
-<footer>
-    “Kalau pagi adalah awal cerita,<br>
-    maka kamu adalah alasan aku ingin melanjutkannya.” 💫
-</footer>
-
-<script>
-let score = 0;
-let timeLeft = 10;
-let gameInterval;
-let timer;
-
-const heart = document.getElementById("heart");
-const gameArea = document.getElementById("gameArea");
-
-function moveHeart() {
-    const maxX = gameArea.clientWidth - 40;
-    const maxY = gameArea.clientHeight - 40;
-
-    heart.style.left = Math.random() * maxX + "px";
-    heart.style.top = Math.random() * maxY + "px";
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to bottom, #87CEFA, #FFFACD);
+    text-align: center;
+    color: #444;
+    overflow: hidden;
 }
 
-heart.onclick = () => {
+.page {
+    display: none;
+    padding: 60px 20px;
+}
+
+.page.active {
+    display: block;
+}
+
+h1, h2 {
+    animation: fadeIn 1.2s ease;
+}
+
+button {
+    margin-top: 30px;
+    padding: 12px 26px;
+    font-size: 16px;
+    border: none;
+    border-radius: 25px;
+    background: #FFD966;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #FFC107;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+/* Animasi gemas */
+.bounce {
+    font-size: 60px;
+    animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+    0%,100% {transform: translateY(0);}
+    50% {transform: translateY(-15px);}
+}
+
+/* GAME */
+#gameArea {
+    width: 320px;
+    height: 300px;
+    background: #ffffffaa;
+    border-radius: 20px;
+    margin: 20px auto;
+    position: relative;
+    overflow: hidden;
+}
+
+#cloud {
+    position: absolute;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+/* AUDIO */
+.audio-control {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- AUDIO -->
+<div class="audio-control">
+    <audio id="bgm" loop>
+        <source src="peak-of-love.mp3" type="audio/mpeg">
+    </audio>
+    <button onclick="toggleMusic()">▶ / ⏸</button>
+    <button onclick="muteMusic()">🔇</button>
+</div>
+
+<!-- PAGE 1 -->
+<div class="page active">
+    <h1>Hi, Pagi ☀️</h1>
+    <button onclick="nextPage()">Next →</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page">
+    <h2>Semoga pagi senin ini lebih cerah dari matahari 🌞</h2>
+    <button onclick="nextPage()">Next →</button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page">
+    <h2>Lebih hangat dari teh tongji ☕<br>dan lebih manis dari senyum kamu 😆 hehe</h2>
+    <button onclick="nextPage()">Next →</button>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page">
+    <h2>Eh aku bole ngingetin kamu ga? 🤍</h2>
+    <button onclick="nextPage()">Next →</button>
+</div>
+
+<!-- PAGE 5 -->
+<div class="page">
+    <h2>Kamu jangan cuek-cuek yaa,<br>nanti keliatan dingin ❄️</h2>
+    <button onclick="nextPage()">Next →</button>
+</div>
+
+<!-- PAGE 6 -->
+<div class="page">
+    <h2>
+        Kalo udah manis ditambah dingin,<br>
+        nanti aku susah bedain kamu sama es krim 🍦
+    </h2>
+    <div class="bounce">🧸💖☁️</div>
+    <button onclick="nextPage()">Next →</button>
+</div>
+
+<!-- PAGE 7 GAME -->
+<div class="page">
+    <h2>Main Game Tangkap Awan Yuk! ☁️</h2>
+    <p>Klik awan sebanyak mungkin!</p>
+    <div id="gameArea">
+        <div id="cloud">☁️</div>
+    </div>
+    <p>⏳ <span id="time">10</span> | ☁️ <span id="score">0</span></p>
+    <button onclick="startGame()">Mulai Game</button>
+</div>
+
+<!-- PAGE 8 FILOSOFI -->
+<div class="page">
+    <h2>☁️ Filosofi Game</h2>
+    <p>
+        Awan itu seperti masalah di pagi hari.<br>
+        Datang, bergerak, dan sering bikin langit kelihatan suram.<br><br>
+        Tapi kalau kamu mau bergerak dan berusaha,<br>
+        langit cerah selalu bisa kamu temuin lagi 🌤️
+    </p>
+    <button onclick="nextPage()">Next →</button>
+</div>
+
+<!-- PAGE 9 RANDOM MOTIVATION -->
+<div class="page">
+    <h2 id="motivation"></h2>
+    <button onclick="nextPage()">Next →</button>
+</div>
+
+<!-- PAGE 10 END -->
+<div class="page">
+    <h1>☁️🐻‍❄️ FIGHTING CLOUDYBEAR 🐻‍❄️☁️</h1>
+</div>
+
+<script>
+let pages = document.querySelectorAll('.page');
+let currentPage = 0;
+
+function nextPage() {
+    pages[currentPage].classList.remove('active');
+    currentPage++;
+    pages[currentPage].classList.add('active');
+
+    if (currentPage === 8) randomMotivation();
+}
+
+function toggleMusic() {
+    const music = document.getElementById("bgm");
+    music.paused ? music.play() : music.pause();
+}
+
+function muteMusic() {
+    const music = document.getElementById("bgm");
+    music.muted = !music.muted;
+}
+
+/* GAME */
+let score = 0;
+let timeLeft = 10;
+let timer, mover;
+
+const cloud = document.getElementById("cloud");
+const area = document.getElementById("gameArea");
+
+function moveCloud() {
+    cloud.style.left = Math.random() * (area.clientWidth - 40) + "px";
+    cloud.style.top = Math.random() * (area.clientHeight - 40) + "px";
+}
+
+cloud.onclick = () => {
     score++;
     document.getElementById("score").innerText = score;
-    moveHeart();
+    moveCloud();
 };
 
 function startGame() {
@@ -116,28 +215,30 @@ function startGame() {
     document.getElementById("score").innerText = score;
     document.getElementById("time").innerText = timeLeft;
 
-    moveHeart();
+    moveCloud();
 
-    clearInterval(gameInterval);
-    clearInterval(timer);
-
-    gameInterval = setInterval(moveHeart, 650);
-
+    mover = setInterval(moveCloud, 700);
     timer = setInterval(() => {
         timeLeft--;
         document.getElementById("time").innerText = timeLeft;
-
         if (timeLeft <= 0) {
-            clearInterval(gameInterval);
+            clearInterval(mover);
             clearInterval(timer);
-            alert(
-                "💖 Waktu habis!\n" +
-                "Cinta terkumpul: " + score + "\n\n" +
-                "Apa pun skornya,\n" +
-                "hatiku tetap milikmu 💕"
-            );
+            nextPage();
         }
     }, 1000);
+}
+
+/* RANDOM MOTIVATION */
+function randomMotivation() {
+    const texts = [
+        "Hari ini kamu cukup, kamu kuat, dan kamu layak bahagia 🌱",
+        "Pelan-pelan gak apa-apa, yang penting tetap jalan ☀️",
+        "Kalau capek, ingat: kamu sudah sejauh ini 💛",
+        "Langit cerah nggak selalu tanpa awan, tapi tetap indah 🌤️"
+    ];
+    document.getElementById("motivation").innerText =
+        texts[Math.floor(Math.random() * texts.length)];
 }
 </script>
 
