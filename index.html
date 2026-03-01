@@ -2,17 +2,18 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Pagi Ceria 🌞</title>
+<title>Pagi Romantis 💕</title>
 <style>
     body {
-        font-family: 'Comic Sans MS', cursive;
-        background: linear-gradient(to bottom, #87CEEB, #FFFACD);
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(to bottom, #FFC0CB, #FFF0F5);
         text-align: center;
         padding: 20px;
+        color: #B03060;
     }
 
     h1 {
-        color: #FF8C00;
+        color: #C71585;
     }
 
     p {
@@ -21,56 +22,70 @@
 
     #gameArea {
         position: relative;
-        width: 300px;
-        height: 300px;
-        background: #ffffffaa;
-        border-radius: 20px;
-        margin: 20px auto;
+        width: 320px;
+        height: 320px;
+        background: #ffffffcc;
+        border-radius: 25px;
+        margin: 25px auto;
         overflow: hidden;
-        border: 3px dashed #FFA500;
+        border: 3px solid #FF69B4;
     }
 
-    #sun {
-        font-size: 40px;
+    #heart {
+        font-size: 38px;
         position: absolute;
         cursor: pointer;
         user-select: none;
     }
 
     button {
-        padding: 10px 20px;
+        padding: 12px 24px;
         font-size: 16px;
-        border-radius: 10px;
+        border-radius: 20px;
         border: none;
-        background: #FFB347;
+        background: #FF69B4;
+        color: white;
         cursor: pointer;
     }
 
     button:hover {
-        background: #FFA500;
+        background: #FF1493;
+    }
+
+    footer {
+        margin-top: 20px;
+        font-style: italic;
+        color: #8B008B;
     }
 </style>
 </head>
 <body>
 
-<h1>☀️ Selamat Pagi, Pejuang Kasur! ☀️</h1>
+<h1>💖 Selamat Pagi, Cintaku 💖</h1>
 <p>
-Semoga pagimu lebih cerah dari matahari,<br>
-lebih hangat dari kopi,<br>
-dan lebih manis dari senyum kamu 😆
+Bangun pagi itu biasa,<br>
+tapi bangun sambil mengingat kamu<br>
+itu luar biasa 💕<br><br>
+Semoga hari ini selembut senyummu<br>
+dan sehangat pelukan yang belum sempat terjadi 🤍
 </p>
 
-<h2>🎮 Game: Tangkap Matahari Pagi!</h2>
-<p>Klik matahari sebanyak mungkin sebelum waktunya habis!</p>
+<h2>🎮 Game: Tangkap Cinta</h2>
+<p>Klik ❤️ sebanyak mungkin sebelum waktunya habis!</p>
 
 <div id="gameArea">
-    <div id="sun">🌞</div>
+    <div id="heart">❤️</div>
 </div>
 
-<p>⏱️ Waktu: <span id="time">10</span> detik</p>
-<p>⭐ Skor: <span id="score">0</span></p>
+<p>⏳ Waktu: <span id="time">10</span> detik</p>
+<p>💗 Cinta Terkumpul: <span id="score">0</span></p>
 
-<button onclick="startGame()">Mulai Game</button>
+<button onclick="startGame()">Mulai dengan Cinta</button>
+
+<footer>
+    “Kalau pagi adalah awal cerita,<br>
+    maka kamu adalah alasan aku ingin melanjutkannya.” 💫
+</footer>
 
 <script>
 let score = 0;
@@ -78,21 +93,21 @@ let timeLeft = 10;
 let gameInterval;
 let timer;
 
-const sun = document.getElementById("sun");
+const heart = document.getElementById("heart");
 const gameArea = document.getElementById("gameArea");
 
-function moveSun() {
+function moveHeart() {
     const maxX = gameArea.clientWidth - 40;
     const maxY = gameArea.clientHeight - 40;
 
-    sun.style.left = Math.random() * maxX + "px";
-    sun.style.top = Math.random() * maxY + "px";
+    heart.style.left = Math.random() * maxX + "px";
+    heart.style.top = Math.random() * maxY + "px";
 }
 
-sun.onclick = () => {
+heart.onclick = () => {
     score++;
     document.getElementById("score").innerText = score;
-    moveSun();
+    moveHeart();
 };
 
 function startGame() {
@@ -101,12 +116,12 @@ function startGame() {
     document.getElementById("score").innerText = score;
     document.getElementById("time").innerText = timeLeft;
 
-    moveSun();
+    moveHeart();
 
     clearInterval(gameInterval);
     clearInterval(timer);
 
-    gameInterval = setInterval(moveSun, 700);
+    gameInterval = setInterval(moveHeart, 650);
 
     timer = setInterval(() => {
         timeLeft--;
@@ -115,7 +130,12 @@ function startGame() {
         if (timeLeft <= 0) {
             clearInterval(gameInterval);
             clearInterval(timer);
-            alert("🌞 Game selesai!\nSkor kamu: " + score + "\nSemoga pagimu makin cerah!");
+            alert(
+                "💖 Waktu habis!\n" +
+                "Cinta terkumpul: " + score + "\n\n" +
+                "Apa pun skornya,\n" +
+                "hatiku tetap milikmu 💕"
+            );
         }
     }, 1000);
 }
